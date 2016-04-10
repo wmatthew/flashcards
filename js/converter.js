@@ -6,11 +6,12 @@
 console.log('Starting converter.');
 
 // Configuration
-var templateFile = "template.svg";
-var csvFile = "data/example.csv";
+var templateFile = "input/templates/template.svg";
+var csvFile = "input/data/example.csv";
 var svgOut = "output/svg/";
 var pngOut = "output/png/";
 var pngDimensions = [600, 600];
+// TODO: confirm files and directories exist before continuing
 
 var fs = require('fs');
 var templateData = fs.readFileSync(templateFile, 'utf8');
@@ -49,7 +50,7 @@ function rowToSvg(rowStr) {
 	rowData = rowData.replace('$NICKNAME$', rowArr[1]);
 	rowData = rowData.replace('$RELATIONSHIP$', rowArr[2]);
 
-	// TODO: warn about overwriting existing file
+	// TODO: warn about overwriting existing files?
 	fs.writeFile(fileName, rowData, 'utf8');
 	console.log("wrote file: " + fileName);
 }
