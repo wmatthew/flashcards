@@ -42,20 +42,24 @@ function rowToSvg(rowStr) {
 	}
 
 	// ok, row is good.
-	var fileName = svgOut + rowArr[0] + ".svg";
-	fileName = fileName.replace(' ', '_');
+	var cleanedName = rowArr[0].replace(' ', '_')
+	var svgFileName = cleanedName + ".svg";
 
 	var rowData = templateData;
 	rowData = rowData.replace('$FULL_NAME$', rowArr[0]);
 	rowData = rowData.replace('$NICKNAME$', rowArr[1]);
 	rowData = rowData.replace('$RELATIONSHIP$', rowArr[2]);
+	// TODO: replace image
 
-	// TODO: warn about overwriting existing files?
-	fs.writeFile(fileName, rowData, 'utf8');
-	console.log("wrote file: " + fileName);
+	// TODO: warn when overwriting existing files
+	fs.writeFile(svgOut + svgFileName, rowData, 'utf8');
+	console.log("wrote SVG: " + svgFileName);
+
+	svgToPng(svgFileName);
 }
 
-function svgToPng() {
+function svgToPng(svgFileName) {
+	var pngFileName = svgFileName.replace('.svg', '.png');
   // TODO
 }
 
