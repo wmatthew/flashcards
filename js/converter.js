@@ -13,6 +13,10 @@ var pngOut = "output/png/";
 var pngDimensions = [600, 600];
 // TODO: confirm files and directories exist before continuing
 
+// TODO: is this the right way to do this?
+var sys = require('sys')
+var exec = require('child_process').exec;
+
 var fs = require('fs');
 var templateData = fs.readFileSync(templateFile, 'utf8');
 processCSV(csvFile);
@@ -58,9 +62,15 @@ function rowToSvg(rowStr) {
 	svgToPng(svgFileName);
 }
 
+// TODO: ugh, make less hacky
 function svgToPng(svgFileName) {
 	var pngFileName = svgFileName.replace('.svg', '.png');
-  // TODO
+	var pngFullPath = __dirname + '/../' + pngOut + pngFileName;
+	var svgFullPath = __dirname + '/../' + svgOut + svgFileName;
+	var inkscapeFullPath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape";
+	var cmd = inkscapeFullPath + " --export-png " + pngFullPath +" -w 600 -h 600 " + svgFullPath
+	console.log("Executing: " + cmd);
+	exec(cmd);
 }
 
 console.log('done.');
