@@ -11,7 +11,7 @@ var csvFile = "input/data/example.csv";
 var svgOut = "output/svg/";
 var pngOut = "output/png/";
 var pngDimensions = [600, 600];
-// TODO: confirm files and directories exist before continuing
+var inkscapeFullPath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape";
 
 // TODO: is this the right way to do this?
 var sys = require('sys')
@@ -19,9 +19,24 @@ var exec = require('child_process').exec;
 
 var fs = require('fs');
 var templateData = fs.readFileSync(templateFile, 'utf8');
-processCSV(csvFile);
 
+processCSV(csvFile);
+console.log('done.');
+
+// Returns true if all checks pass, false otherwise
+function sanityChecks() {
+  // TODO: confirm files and directories exist before continuing
+
+	return true;
+}
+
+// Process the input CSV file
 function processCSV(csvFile) {
+	if (!sanityChecks()) {
+		console.log("Failed sanity checks. Quitting early.");
+		return;
+	}
+
   var csvData = fs.readFileSync(csvFile, 'utf8');
 	var familyArray = csvData.split(/\r?\n/);
 	var headerRow = familyArray.shift();
@@ -34,6 +49,7 @@ function processCSV(csvFile) {
 	familyArray.forEach(rowToSvg);
 }
 
+// Convert one row's data to an SVG
 function rowToSvg(rowStr) {
 	if (!rowStr) {
 		// console.log("Skipping invalid row: [" + rowStr + "]");
@@ -62,15 +78,13 @@ function rowToSvg(rowStr) {
 	svgToPng(svgFileName);
 }
 
-// TODO: ugh, make less hacky
+// Convert an SVG to a PNG
+// TODO: make less hacky
 function svgToPng(svgFileName) {
 	var pngFileName = svgFileName.replace('.svg', '.png');
 	var pngFullPath = __dirname + '/../' + pngOut + pngFileName;
 	var svgFullPath = __dirname + '/../' + svgOut + svgFileName;
-	var inkscapeFullPath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape";
 	var cmd = inkscapeFullPath + " --export-png " + pngFullPath +" -w 600 -h 600 " + svgFullPath
 	console.log("Executing: " + cmd);
 	exec(cmd);
 }
-
-console.log('done.');
