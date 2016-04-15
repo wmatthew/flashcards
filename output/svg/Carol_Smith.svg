@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="500"
-   height="500"
-   viewBox="0 0 500 500.00002"
+   width="750"
+   height="1125"
+   viewBox="0 0 750 1125"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -23,30 +23,35 @@
      id="defs4" />
   <sodipodi:namedview
      id="base"
-     pagecolor="#b5b5b5"
-     bordercolor="#666666"
-     borderopacity="1.0"
+     pagecolor="#ffffff"
+     bordercolor="#ffffff"
+     borderopacity="1"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.93184014"
-     inkscape:cx="226.08199"
-     inkscape:cy="345.44626"
+     inkscape:zoom="0.54656366"
+     inkscape:cx="380.37655"
+     inkscape:cy="511.01092"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="false"
-     inkscape:window-width="1584"
+     inkscape:window-width="1680"
      inkscape:window-height="1005"
      inkscape:window-x="0"
-     inkscape:window-y="1"
+     inkscape:window-y="59"
      inkscape:window-maximized="1"
      borderlayer="true"
      units="px"
      showguides="true"
-     inkscape:guide-bbox="true">
+     inkscape:guide-bbox="true"
+     inkscape:snap-object-midpoints="true"
+     showborder="false"
+     inkscape:snap-to-guides="true">
     <sodipodi:guide
-       position="397.14286,960.00004"
-       orientation="0,1"
-       id="guide3376" />
+       position="375,1200.226"
+       orientation="1,0"
+       id="guide4200"
+       inkscape:label="CenterLine"
+       inkscape:color="rgb(0,0,255)" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -61,15 +66,53 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Background">
+    <rect
+       style="opacity:1;fill:#ea8439;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:15;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3367"
+       width="750"
+       height="1125"
+       x="0"
+       y="0" />
+  </g>
+  <g
+     inkscape:label="Boxes"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-552.36208)">
+     transform="translate(0,72.637957)">
+    <rect
+       style="opacity:0;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:7.17799997;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3379"
+       width="351.42856"
+       height="485.71429"
+       x="280"
+       y="220.93364" />
+    <rect
+       style="opacity:1;fill:#626262;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:11.21864319;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4189"
+       width="688.78137"
+       height="288.78137"
+       x="30.609322"
+       y="732.97137" />
+    <rect
+       y="57.99649"
+       x="131.13445"
+       height="487.73108"
+       width="487.73108"
+       id="rect4191"
+       style="opacity:1;fill:#afafaf;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:12.26893234;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Text">
     <flowRoot
        xml:space="preserve"
        id="flowRoot3336"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(155.71428,514.28575)"><flowRegion
+       transform="translate(175.21611,-62.009501)"><flowRegion
          id="flowRegion3338"><rect
            id="rect3340"
            width="565.71429"
@@ -81,7 +124,7 @@
        xml:space="preserve"
        id="flowRoot3344"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(-72.857151,224.28571)"><flowRegion
+       transform="translate(203.35639,316.65321)"><flowRegion
          id="flowRegion3346"><rect
            id="rect3348"
            width="577.14288"
@@ -89,38 +132,11 @@
            x="82.85714"
            y="340.93362"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial" /></flowRegion><flowPara
-         id="flowPara3350">Carol Smith</flowPara></flowRoot>    <rect
-       style="opacity:0;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:7.17799997;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect3379"
-       width="351.42856"
-       height="485.71429"
-       x="280"
-       y="220.93364" />
-    <rect
-       style="opacity:1;fill:#2dfc00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:6.30685663;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect4189"
-       width="475.15683"
-       height="132.2997"
-       x="13.850135"
-       y="909.06952" />
-    <rect
-       y="680.01453"
-       x="254.79514"
-       height="201.8383"
-       width="223.26686"
-       id="rect4191"
-       style="opacity:1;fill:#fc6600;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.33998823;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-    <circle
-       style="opacity:1;fill:#0b00fc;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:8.56653214;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path4193"
-       cx="126.24399"
-       cy="714.66229"
-       r="86.950813" />
-    <flowRoot
+         id="flowPara3350">Carol Smith</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot3352"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="translate(22.857104,434.28574)"><flowRegion
+       transform="translate(160.1965,403.72303)"><flowRegion
          id="flowRegion3354"><rect
            id="rect3356"
            width="600"
@@ -128,5 +144,40 @@
            x="62.857143"
            y="518.07648"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial" /></flowRegion><flowPara
-         id="flowPara3358">Sister</flowPara></flowRoot>  </g>
+         id="flowPara3358">Sister</flowPara></flowRoot>    <flowRoot
+       transform="translate(-45.539332,315.13556)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot3350"
+       xml:space="preserve"><flowRegion
+         id="flowRegion3352"><rect
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial"
+           y="340.93362"
+           x="82.85714"
+           height="145.71428"
+           width="577.14288"
+           id="rect3354" /></flowRegion><flowPara
+         id="flowPara3356">Full Name:</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3358"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="translate(-47.056989,377.35949)"><flowRegion
+         id="flowRegion3360"><rect
+           id="rect3362"
+           width="577.14288"
+           height="145.71428"
+           x="82.85714"
+           y="340.93362"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial" /></flowRegion><flowPara
+         id="flowPara3364">Birthday:</flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;line-height:125%;font-family:Futura;-inkscape-font-specification:'Futura Medium';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="306.2547"
+       y="357.60529"
+       id="text4194"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4196"
+         x="306.2547"
+         y="357.60529">(photo)</tspan></text>
+  </g>
 </svg>

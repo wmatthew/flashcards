@@ -84,7 +84,7 @@ function svgToPng(svgFileName) {
 	var pngFileName = svgFileName.replace('.svg', '.png');
 	var pngFullPath = __dirname + '/../' + pngOut + pngFileName;
 	var svgFullPath = __dirname + '/../' + svgOut + svgFileName;
-	var cmd = inkscapeFullPath + " --export-png " + pngFullPath +" -w 600 -h 600 " + svgFullPath
+	var cmd = inkscapeFullPath + " --export-png " + pngFullPath +" -w 750 -h 1125 " + svgFullPath
 	console.log("Executing: " + cmd);
 	exec(cmd);
 }
