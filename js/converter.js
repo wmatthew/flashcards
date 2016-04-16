@@ -13,21 +13,46 @@ var pngOut = "output/png/";
 var pngDimensions = [600, 600];
 var inkscapeFullPath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape";
 
-// TODO: is this the right way to do this?
-var sys = require('sys')
+var sys = require('sys'); // TODO: sys is deprecated. Use util instead.
 var exec = require('child_process').exec;
 
 var fs = require('fs');
 var templateData = fs.readFileSync(templateFile, 'utf8');
 
+sanityChecks();
 processCSV(csvFile);
 console.log('done.');
 
+// Confirm files and directories exist before continuing
 // Returns true if all checks pass, false otherwise
 function sanityChecks() {
-  // TODO: confirm files and directories exist before continuing
+	var result = true;
 
-	return true;
+  result &= fileExists(csvFile);
+  result &= fileExists(templateFile);
+  result &= fileExists(svgOut);
+  result &= fileExists(pngOut);
+
+  var nonExistantFile = "abc.def.xyz";
+  result &= !fileExists(nonExistantFile);
+
+  if (result) {
+  	console.log("Sanity checks passed");
+  } else {
+  	console.log("Sanity checks failed");
+  }
+
+	return result;
+}
+
+// True if file/dir exists, false otherwise.
+function fileExists(relativePath) {
+	try {
+		fs.statSync(relativePath);
+		return true;
+	} catch (e) {
+		return false;
+	}
 }
 
 // Process the input CSV file
@@ -69,7 +94,6 @@ function rowToSvg(rowStr) {
 	rowData = rowData.replace('$FULL_NAME$', rowArr[0]);
 	rowData = rowData.replace('$NICKNAME$', rowArr[1]);
 	rowData = rowData.replace('$RELATIONSHIP$', rowArr[2]);
-	// TODO: replace image
 
 	// TODO: warn when overwriting existing files
 	fs.writeFile(svgOut + svgFileName, rowData, 'utf8');
