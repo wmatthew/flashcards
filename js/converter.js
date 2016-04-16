@@ -19,7 +19,6 @@ var exec = require('child_process').exec;
 var fs = require('fs');
 var templateData = fs.readFileSync(templateFile, 'utf8');
 
-sanityChecks();
 processCSV(csvFile);
 console.log('done.');
 
