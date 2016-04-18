@@ -32,8 +32,8 @@ function sanityChecks() {
   result &= fileExists(svgOut);
   result &= fileExists(pngOut);
 
-  var nonExistantFile = "abc.def.xyz";
-  result &= !fileExists(nonExistantFile);
+  var nonExistentFile = "abc.def.xyz";
+  result &= !fileExists(nonExistentFile);
 
   if (result) {
   	console.log("Sanity checks passed");
@@ -85,7 +85,6 @@ function rowToSvg(rowStr) {
 		return;
 	}
 
-	// ok, row is good.
 	var cleanedName = rowArr[0].replace(' ', '_')
 	var svgFileName = cleanedName + ".svg";
 
@@ -94,8 +93,11 @@ function rowToSvg(rowStr) {
 	rowData = rowData.replace('$NICKNAME$', rowArr[1]);
 	rowData = rowData.replace('$RELATIONSHIP$', rowArr[2]);
 
-	// TODO: warn when overwriting existing files
-	fs.writeFile(svgOut + svgFileName, rowData, 'utf8');
+	var svgPath = svgOut + svgFileName;
+	if (fileExists(svgPath)) {
+  	console.log("  warning: overwriting SVG: " + svgPath);
+	}
+	fs.writeFile(svgPath, rowData, 'utf8');
 	console.log("wrote SVG: " + svgFileName);
 
 	svgToPng(svgFileName);
@@ -107,6 +109,9 @@ function svgToPng(svgFileName) {
 	var pngFileName = svgFileName.replace('.svg', '.png');
 	var pngFullPath = __dirname + '/../' + pngOut + pngFileName;
 	var svgFullPath = __dirname + '/../' + svgOut + svgFileName;
+	if (fileExists(pngFullPath)) {
+  	console.log("  warning: overwriting PNG: " + pngFullPath);
+	}
 	var cmd = inkscapeFullPath + " --export-png " + pngFullPath +" -w 750 -h 1125 " + svgFullPath
 	console.log("Executing: " + cmd);
 	exec(cmd);
