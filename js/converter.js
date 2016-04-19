@@ -92,6 +92,8 @@ function rowToSvg(rowStr) {
 	rowData = rowData.replace('$FULL_NAME$', rowArr[0]);
 	rowData = rowData.replace('$NICKNAME$', rowArr[1]);
 	rowData = rowData.replace('$RELATIONSHIP$', rowArr[2]);
+	rowData = rowData.replace('default_person.png', rowArr[4]);
+	rowData = rowData.replace('default_person.png', rowArr[4]);
 
 	var svgPath = svgOut + svgFileName;
 	if (fileExists(svgPath)) {
