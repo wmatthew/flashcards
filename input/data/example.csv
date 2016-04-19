@@ -1,5 +1,5 @@
 Name,Nickname,Relationship (to John Doe),Birthday,Image
-Alice Smith,none,Mother,1/1/1970,Alice_Smith.jpg
-Bob Smith,none,Father,2/2/1970,Bob_Smith.jpg
-Carol Smith,none,Sister,3/3/2000,Carol_Smith.jpg
-Dave Smith,none,Grandfather,4/4/1970,Dave_Smith.jpg
+Alice Smith,Alice,Mother,1/1/1970,Alice_Smith.jpg
+Bob Bert Smith,Bobby,Father,2/2/1970,Bob_Smith.jpg
+Carol Smith,Carol,Sister,3/3/2000,Carol_Smith.jpg
+David Daniel Smith,Gramps,Grandfather,4/4/1970,Grampa_Dave.jpg

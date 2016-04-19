@@ -85,14 +85,27 @@ function rowToSvg(rowStr) {
 		return;
 	}
 
-	var cleanedName = rowArr[0].replace(' ', '_')
+	var cleanedName = rowArr[0];
+	var cleanedName = cleanedName.replace(' ', '_');
+	var cleanedName = cleanedName.replace(' ', '_'); // TODO: replaceAll
 	var svgFileName = cleanedName + ".svg";
 
 	var rowData = templateData;
-	rowData = rowData.replace('$FULL_NAME$', rowArr[0]);
-	rowData = rowData.replace('$NICKNAME$', rowArr[1]);
-	rowData = rowData.replace('$RELATIONSHIP$', rowArr[2]);
-	rowData = rowData.replace('default_person.png', rowArr[4]);
+
+	var fullName = rowArr[0];
+	var nickName = rowArr[1];
+	if (nickName == "none") {
+		nickName = fullName;
+	}
+
+	rowData = rowData.replace('$FULL_NAME$', fullName);
+	rowData = rowData.replace('$NICKNAME$', nickName);
+	rowData = rowData.replace('$DESC_1$', "");
+	rowData = rowData.replace('$DESC_2$', rowArr[2]);
+	rowData = rowData.replace('$DESC_3$', "");
+	rowData = rowData.replace('$DESC_4$', "");
+	rowData = rowData.replace('$BIRTHDAY$', rowArr[3]);
+	rowData = rowData.replace('default_person.png', rowArr[4]); // TODO: replaceAll
 	rowData = rowData.replace('default_person.png', rowArr[4]);
 
 	var svgPath = svgOut + svgFileName;
