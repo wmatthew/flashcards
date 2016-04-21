@@ -5,12 +5,14 @@
 
 console.log('Starting converter.');
 
+require('./StringUtils.js');
+
 // Configuration
 var templateFile = "input/templates/template.svg";
 var csvFile = "input/data/example.csv";
 var svgOut = "output/svg/";
 var pngOut = "output/png/";
-var pngDimensions = [600, 600];
+var pngDimensions = [750, 1125];
 var inkscapeFullPath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape";
 
 var sys = require('sys'); // TODO: sys is deprecated. Use util instead.
@@ -34,6 +36,8 @@ function sanityChecks() {
 
   var nonExistentFile = "abc.def.xyz";
   result &= !fileExists(nonExistentFile);
+
+  result &= ("abbc".replaceAll('b', 'x') == "axxc");
 
   if (result) {
   	console.log("Sanity checks passed");
@@ -86,8 +90,7 @@ function rowToSvg(rowStr) {
 	}
 
 	var cleanedName = rowArr[0];
-	var cleanedName = cleanedName.replace(' ', '_');
-	var cleanedName = cleanedName.replace(' ', '_'); // TODO: replaceAll
+	var cleanedName = cleanedName.replaceAll(' ', '_');
 	var svgFileName = cleanedName + ".svg";
 
 	var rowData = templateData;
@@ -98,15 +101,14 @@ function rowToSvg(rowStr) {
 		nickName = fullName;
 	}
 
-	rowData = rowData.replace('$FULL_NAME$', fullName);
-	rowData = rowData.replace('$NICKNAME$', nickName);
-	rowData = rowData.replace('$DESC_1$', "");
-	rowData = rowData.replace('$DESC_2$', rowArr[2]);
-	rowData = rowData.replace('$DESC_3$', "");
-	rowData = rowData.replace('$DESC_4$', "");
-	rowData = rowData.replace('$BIRTHDAY$', rowArr[3]);
-	rowData = rowData.replace('default_person.png', rowArr[4]); // TODO: replaceAll
-	rowData = rowData.replace('default_person.png', rowArr[4]);
+	rowData = rowData.replaceAll('$FULL_NAME$', fullName);
+	rowData = rowData.replaceAll('$NICKNAME$', nickName);
+	rowData = rowData.replaceAll('$DESC_1$', "");
+	rowData = rowData.replaceAll('$DESC_2$', rowArr[2]);
+	rowData = rowData.replaceAll('$DESC_3$', "");
+	rowData = rowData.replaceAll('$DESC_4$', "");
+	rowData = rowData.replaceAll('$BIRTHDAY$', rowArr[3]);
+	rowData = rowData.replaceAll('default_person.png', rowArr[4]);
 
 	var svgPath = svgOut + svgFileName;
 	if (fileExists(svgPath)) {
@@ -127,7 +129,10 @@ function svgToPng(svgFileName) {
 	if (fileExists(pngFullPath)) {
   	console.log("  warning: overwriting PNG: " + pngFullPath);
 	}
-	var cmd = inkscapeFullPath + " --export-png " + pngFullPath +" -w 750 -h 1125 " + svgFullPath
+	var cmd = inkscapeFullPath + " --export-png " + pngFullPath +
+	          " -w " + pngDimensions[0] +
+	          " -h " + pngDimensions[1] +
+	          " " + svgFullPath;
 	console.log("Executing: " + cmd);
 	exec(cmd);
 }
