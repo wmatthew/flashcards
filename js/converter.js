@@ -1,28 +1,66 @@
 // Create an image for each row in the source database.
 //
-// usage: node converter.js
+// node converter.js --help       # to see usage information
+
 "use strict";
-
-console.log('Starting converter.');
-
 require('./StringUtils.js');
 
-// Configuration
-var templateFile = "input/templates/template.svg";
-var csvFile = "input/data/example.csv";
-var svgOut = "output/svg/";
-var pngOut = "output/png/";
+//==================================================================================================
+// First, handle inputs
+var argv = require('../lib/node_modules/minimist')(process.argv.slice(2));
+if (argv.vv) console.dir(argv);
+
+if (argv.h || argv.help) {
+	console.log("Usage:");
+	console.log(" -h or --help                      # display this message");
+	console.log(" -v                                # verbose mode");
+	console.log(" --vv                              # debug mode (very verbose)");
+	console.log(" --overwrite                       # okay to overwrite files");
+	console.log(" --template=path/to/template.svg   # flashcard template");
+	console.log(" --csv=path/to/database.csv        # DB of personal info");
+	console.log(" --svg=path/to/svgDir/             # SVG output directory");
+	console.log(" --png=path/to/pngDir/             # PNG output directory");
+	return;
+}
+
+// TODO: move logging elsewhere
+var verbose = argv.v || argv.vv;
+var vverbose = argv.vv;
+function warn(msg) { console.log("  [WARN] " + msg); }
+function info(msg) { if (verbose) { console.log("  [INFO] " + msg); } }
+function debug(msg) { if (vverbose) { console.log("  [DEBUG] " + msg); } }
+
+function parse(arg, defaultValue, context) {
+	if (arg) {
+		info(context + ": set to " + arg);
+		return arg;
+	} else {
+		info(context + ": default to " + defaultValue);
+		return defaultValue;
+	}
+}
+
+var templateFile = parse(argv.template, "input/templates/template.svg", "template file");
+var csvFile      = parse(argv.csv,      "input/data/example.csv", "csv data file");
+var svgOut       = parse(argv.svgOut,   "output/svg/", "svg output dir");
+var pngOut       = parse(argv.pngOut,   "output/png/", "png output dir");
+var overwriteOk  = parse(argv.overwrite, false, "okay to overwrite files");
+
+// These inputs are hard-coded, for now
 var pngDimensions = [750, 1125];
 var inkscapeFullPath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape";
 
+//==================================================================================================
+// Actual Execution
 var sys = require('sys'); // TODO: sys is deprecated. Use util instead.
 var exec = require('child_process').exec;
-
 var fs = require('fs');
 var templateData = fs.readFileSync(templateFile, 'utf8');
 
 processCSV(csvFile);
-console.log('done.');
+
+//==================================================================================================
+// Helper Functions
 
 // Confirm files and directories exist before continuing
 // Returns true if all checks pass, false otherwise
@@ -40,9 +78,9 @@ function sanityChecks() {
   result &= ("abbc".replaceAll('b', 'x') == "axxc");
 
   if (result) {
-  	console.log("Sanity checks passed");
+  	info("Sanity checks passed");
   } else {
-  	console.log("Sanity checks failed");
+  	warn("Sanity checks failed");
   }
 
 	return result;
@@ -111,12 +149,13 @@ function rowToSvg(rowStr) {
 	rowData = rowData.replaceAll('default_person.png', rowArr[4]);
 
 	var svgPath = svgOut + svgFileName;
-	if (fileExists(svgPath)) {
-  	console.log("  warning: overwriting SVG: " + svgPath);
+	if (fileExists(svgPath) && !overwriteOk) {
+  	warn("New SVG would overwrite " + svgPath + "; skipping this row. (use --overwrite if this is okay)");
+  	return;
 	}
-	fs.writeFile(svgPath, rowData, 'utf8');
-	console.log("wrote SVG: " + svgFileName);
 
+	fs.writeFile(svgPath, rowData, 'utf8');
+	info("wrote SVG: " + svgFileName);
 	svgToPng(svgFileName);
 }
 
@@ -126,13 +165,15 @@ function svgToPng(svgFileName) {
 	var pngFileName = svgFileName.replace('.svg', '.png');
 	var pngFullPath = __dirname + '/../' + pngOut + pngFileName;
 	var svgFullPath = __dirname + '/../' + svgOut + svgFileName;
-	if (fileExists(pngFullPath)) {
-  	console.log("  warning: overwriting PNG: " + pngFullPath);
+	if (fileExists(pngFullPath) && !overwriteOk) {
+  	warn("New PNG would overwrite " + pngFullPath + "; skipping this PNG. (use --overwrite if this is okay)");
+  	return;
 	}
 	var cmd = inkscapeFullPath + " --export-png " + pngFullPath +
 	          " -w " + pngDimensions[0] +
 	          " -h " + pngDimensions[1] +
 	          " " + svgFullPath;
-	console.log("Executing: " + cmd);
+	debug("Executing: " + cmd);
 	exec(cmd);
+  info("wrote PNG: " + pngFileName);
 }
