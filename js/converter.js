@@ -42,8 +42,8 @@ function parse(arg, defaultValue, context) {
 
 var templateFile = parse(argv.template, "input/templates/template.svg", "template file");
 var csvFile      = parse(argv.csv,      "input/data/example.csv", "csv data file");
-var svgOut       = parse(argv.svgOut,   "output/svg/", "svg output dir");
-var pngOut       = parse(argv.pngOut,   "output/png/", "png output dir");
+var svgOut       = parse(argv.svg,      "output/svg/", "svg output dir");
+var pngOut       = parse(argv.png,      "output/png/", "png output dir");
 var overwriteOk  = parse(argv.overwrite, false, "okay to overwrite files");
 
 // These inputs are hard-coded, for now
@@ -106,7 +106,7 @@ function processCSV(csvFile) {
   var csvData = fs.readFileSync(csvFile, 'utf8');
 	var familyArray = csvData.split(/\r?\n/);
 	var headerRow = familyArray.shift();
-	var expectedHeaderRow = "Name,Nickname,Relationship (to John Doe),Birthday,Image";
+	var expectedHeaderRow = "Name,Nickname,Relationship (to John Smith),Birthday,Image";
 	if (headerRow !== expectedHeaderRow) {
 		console.log("Unexpected header row. Quitting early.");
 		return;
