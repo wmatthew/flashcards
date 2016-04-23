@@ -6,7 +6,7 @@
 require('./StringUtils.js');
 
 //==================================================================================================
-// First, handle inputs
+// First, parse the inputs
 var argv = require('../lib/node_modules/minimist')(process.argv.slice(2));
 if (argv.vv) console.dir(argv);
 
@@ -40,27 +40,44 @@ function parse(arg, defaultValue, context) {
 	}
 }
 
-var templateFile = parse(argv.template, "input/templates/template.svg", "template file");
-var csvFile      = parse(argv.csv,      "input/data/example.csv", "csv data file");
-var svgOut       = parse(argv.svg,      "output/svg/", "svg output dir");
-var pngOut       = parse(argv.png,      "output/png/", "png output dir");
+var templateFile = parse(argv.template, "input/templates/template_front.svg", "template file");
+var csvFile      = parse(argv.csv,      "input/data/smiths_example.csv", "csv data file");
+var svgOut       = parse(argv.svg,      "output/smiths/svg/", "svg output dir");
+var pngOut       = parse(argv.png,      "output/smiths/png/", "png output dir");
 var overwriteOk  = parse(argv.overwrite, false, "okay to overwrite files");
 
 // These inputs are hard-coded, for now
 var pngDimensions = [750, 1125];
 var inkscapeFullPath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape";
 
-//==================================================================================================
-// Actual Execution
+// File System Utils
 var sys = require('sys'); // TODO: sys is deprecated. Use util instead.
 var exec = require('child_process').exec;
 var fs = require('fs');
-var templateData = fs.readFileSync(templateFile, 'utf8');
 
-processCSV(csvFile);
+//==================================================================================================
+// Actual Execution
+var templateData = fs.readFileSync(templateFile, 'utf8');
+convert();
 
 //==================================================================================================
 // Helper Functions
+
+function convert() {
+	var sanityResult = sanityChecks();
+	if (!sanityResult) {
+		console.log("Failed sanity checks. Quitting early.");
+		return;
+	}
+
+	var familyArray = processCSV(csvFile);
+	if (!familyArray) {
+		console.log("Failed to process CSV. Quitting early.");
+		return;
+	}
+
+	familyArray.forEach(rowToSvg);
+}
 
 // Confirm files and directories exist before continuing
 // Returns true if all checks pass, false otherwise
@@ -98,27 +115,22 @@ function fileExists(relativePath) {
 
 // Process the input CSV file
 function processCSV(csvFile) {
-	if (!sanityChecks()) {
-		console.log("Failed sanity checks. Quitting early.");
-		return;
-	}
-
   var csvData = fs.readFileSync(csvFile, 'utf8');
 	var familyArray = csvData.split(/\r?\n/);
 	var headerRow = familyArray.shift();
 	var expectedHeaderRow = "Name,Nickname,Relationship (to John Smith),Birthday,Image";
 	if (headerRow !== expectedHeaderRow) {
 		console.log("Unexpected header row. Quitting early.");
-		return;
+		return false;
 	}
 
-	familyArray.forEach(rowToSvg);
+	return familyArray;
 }
 
 // Convert one row's data to an SVG
 function rowToSvg(rowStr) {
 	if (!rowStr) {
-		// console.log("Skipping invalid row: [" + rowStr + "]");
+		console.debug("Skipping invalid row: [" + rowStr + "]");
 		return;
 	}
 	var rowArr = rowStr.split(',');
