@@ -16,7 +16,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="template.svg"
+   sodipodi:docname="template_back.svg"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -29,15 +29,15 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="0.54656366"
-     inkscape:cx="1281.2334"
-     inkscape:cy="511.01092"
+     inkscape:cx="315.19772"
+     inkscape:cy="437.8264"
      inkscape:document-units="px"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer4"
      showgrid="false"
      inkscape:window-width="1781"
      inkscape:window-height="1086"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="58"
      inkscape:window-maximized="0"
      borderlayer="true"
      units="px"
@@ -83,7 +83,8 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,72.637957)"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     style="display:none">
     <rect
        style="opacity:0;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:7.17799997;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect3379"
@@ -110,10 +111,9 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Photo"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <image
-       xlink:href="../../input/images/Alice_Smith.jpg"
+       xlink:href="../../../input/images/smiths/Bob_Smith_cropped.png"
        width="500"
        height="500"
        preserveAspectRatio="none"
@@ -124,7 +124,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer3"
-     inkscape:label="Text">
+     inkscape:label="Text"
+     style="display:none">
     <flowRoot
        xml:space="preserve"
        id="flowRoot3336"
@@ -137,7 +138,7 @@
            x="77.14286"
            y="109.50506"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial" /></flowRegion><flowPara
-         id="flowPara3342">Alice</flowPara></flowRoot>    <flowRoot
+         id="flowPara3342">Bobby</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot3344"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -149,7 +150,7 @@
            x="82.85714"
            y="340.93362"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial" /></flowRegion><flowPara
-         id="flowPara3350">Alice Smith</flowPara></flowRoot>    <flowRoot
+         id="flowPara3350">Bob Bert Smith</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot3352"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -163,7 +164,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial;text-align:center;text-anchor:middle"
            ry="0" /></flowRegion><flowPara
          id="flowPara3358"></flowPara><flowPara
-         id="flowPara3378">Mother</flowPara><flowPara
+         id="flowPara3378">Father</flowPara><flowPara
          id="flowPara3380"></flowPara><flowPara
          id="flowPara3384"></flowPara></flowRoot>    <flowRoot
        transform="translate(-45.539332,315.13556)"
@@ -201,10 +202,10 @@
            height="145.71428"
            width="577.14288"
            id="rect3366" /></flowRegion><flowPara
-         id="flowPara3368">1/1/1970</flowPara></flowRoot>    <flowRoot
+         id="flowPara3368">2/2/1970</flowPara></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot3370"
-       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Futura;font-style:normal;font-weight:500;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:Futura Medium;font-stretch:normal;font-variant:normal"><flowRegion
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;line-height:125%;font-family:Futura;-inkscape-font-specification:'Futura Medium';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
          id="flowRegion3372"><rect
            id="rect3374"
            width="20.125744"

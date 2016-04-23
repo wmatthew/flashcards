@@ -6,7 +6,18 @@ node js/converter.js                            \
   --overwrite                                   \
   --template=input/templates/template_front.svg \
   --csv=input/data/smiths_example.csv           \
+  --imgs=input/images/smiths/                   \
   --svg=output/smiths/svg/                      \
-  --png=output/smiths/png/                      ;
+  --png=output/smiths/png/                      \
+  --suffix=_front                               ;
 
-# TODO: also create backs of cards???
+# Backs of cards
+node js/converter.js                            \
+  -v                                            \
+  --overwrite                                   \
+  --template=input/templates/template_back.svg  \
+  --csv=input/data/smiths_example.csv           \
+  --imgs=input/images/smiths/                   \
+  --svg=output/smiths/svg/                      \
+  --png=output/smiths/png/                      \
+  --suffix=_back                                ;

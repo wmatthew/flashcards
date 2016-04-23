@@ -18,8 +18,10 @@ if (argv.h || argv.help) {
 	console.log(" --overwrite                       # okay to overwrite files");
 	console.log(" --template=path/to/template.svg   # flashcard template");
 	console.log(" --csv=path/to/database.csv        # DB of personal info");
+	console.log(" --imgs=path/to/imgDir/            # Input image directory");
 	console.log(" --svg=path/to/svgDir/             # SVG output directory");
 	console.log(" --png=path/to/pngDir/             # PNG output directory");
+	console.log(" --suffix=_suffix                  # Output file name suffix");
 	return;
 }
 
@@ -42,9 +44,11 @@ function parse(arg, defaultValue, context) {
 
 var templateFile = parse(argv.template, "input/templates/template_front.svg", "template file");
 var csvFile      = parse(argv.csv,      "input/data/smiths_example.csv", "csv data file");
+var imgDir       = parse(argv.imgs,     "input/images/smiths/", "input image dir");
 var svgOut       = parse(argv.svg,      "output/smiths/svg/", "svg output dir");
 var pngOut       = parse(argv.png,      "output/smiths/png/", "png output dir");
 var overwriteOk  = parse(argv.overwrite, false, "okay to overwrite files");
+var outputSuffix = parse(argv.suffix, "", "output file name suffix")
 
 // These inputs are hard-coded, for now
 var pngDimensions = [750, 1125];
@@ -130,7 +134,7 @@ function processCSV(csvFile) {
 // Convert one row's data to an SVG
 function rowToSvg(rowStr) {
 	if (!rowStr) {
-		console.debug("Skipping invalid row: [" + rowStr + "]");
+		debug("Skipping invalid row: [" + rowStr + "]");
 		return;
 	}
 	var rowArr = rowStr.split(',');
@@ -141,7 +145,7 @@ function rowToSvg(rowStr) {
 
 	var cleanedName = rowArr[0];
 	var cleanedName = cleanedName.replaceAll(' ', '_');
-	var svgFileName = cleanedName + ".svg";
+	var svgFileName = cleanedName + outputSuffix + ".svg";
 
 	var rowData = templateData;
 
@@ -151,6 +155,11 @@ function rowToSvg(rowStr) {
 		nickName = fullName;
 	}
 
+	// Add an extra dir level here because svg output dir is deeper than input:
+	//   input/templates/
+	//   output/smiths/svg/
+	var imageWithPath = "../" + imgDir + rowArr[4];
+
 	rowData = rowData.replaceAll('$FULL_NAME$', fullName);
 	rowData = rowData.replaceAll('$NICKNAME$', nickName);
 	rowData = rowData.replaceAll('$DESC_1$', "");
@@ -158,7 +167,7 @@ function rowToSvg(rowStr) {
 	rowData = rowData.replaceAll('$DESC_3$', "");
 	rowData = rowData.replaceAll('$DESC_4$', "");
 	rowData = rowData.replaceAll('$BIRTHDAY$', rowArr[3]);
-	rowData = rowData.replaceAll('default_person.png', rowArr[4]);
+	rowData = rowData.replaceAll('input/images/default_person.png', imageWithPath);
 
 	var svgPath = svgOut + svgFileName;
 	if (fileExists(svgPath) && !overwriteOk) {
