@@ -1,6 +1,6 @@
 # Example usage of converter.js
 
-# Fronts of cards
+# Card fronts
 node js/converter.js                            \
   -v                                            \
   --overwrite                                   \
@@ -11,7 +11,7 @@ node js/converter.js                            \
   --png=output/smiths/png/                      \
   --suffix=_front                               ;
 
-# Backs of cards
+# Card backs (photo only)
 node js/converter.js                            \
   -v                                            \
   --overwrite                                   \
