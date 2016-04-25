@@ -122,11 +122,13 @@ function processCSV(csvFile) {
   var csvData = fs.readFileSync(csvFile, 'utf8');
 	var familyArray = csvData.split(/\r?\n/);
 	var headerRow = familyArray.shift();
-	var expectedHeaderRow = "Name,Nickname,Relationship (to John Smith),Birthday,Image";
-	if (headerRow !== expectedHeaderRow) {
-		console.log("Unexpected header row. Quitting early.");
-		return false;
-	}
+
+	// Not general.
+	// var expectedHeaderRow = "Name,Nickname,Relationship (to John Smith),Birthday,Image";
+	// if (headerRow !== expectedHeaderRow) {
+	// 	console.log("Unexpected header row. Quitting early.");
+	// 	return false;
+	// }
 
 	return familyArray;
 }
@@ -138,10 +140,13 @@ function rowToSvg(rowStr) {
 		return;
 	}
 	var rowArr = rowStr.split(',');
-	if (rowArr.length !== 5) {
-		console.log("Row of unexpected length ("+rowArr.length+"): " + rowStr);
-		return;
-	}
+
+	// It's more convenient if we do allow extra unused colums off to the right.
+	// TODO: add a flag to enable/disable this check?
+	// if (rowArr.length !== 5) {
+	// 	console.log("Row of unexpected length ("+rowArr.length+"): " + rowStr);
+	// 	return;
+	// }
 
 	var cleanedName = rowArr[0];
 	var cleanedName = cleanedName.replaceAll(' ', '_');
@@ -158,7 +163,10 @@ function rowToSvg(rowStr) {
 	// Add an extra dir level here because svg output dir is deeper than input:
 	//   input/templates/
 	//   output/smiths/svg/
-	var imageWithPath = "../" + imgDir + rowArr[4];
+	var imageWithPath = 'input/images/default_person.png'; // default
+	if (rowArr[4].length > 0) {
+		imageWithPath = "../" + imgDir + rowArr[4];
+	}
 
 	rowData = rowData.replaceAll('$FULL_NAME$', fullName);
 	rowData = rowData.replaceAll('$NICKNAME$', nickName);
