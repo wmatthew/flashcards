@@ -7,7 +7,7 @@ This was designed to help memorize the members of a real-world family. The [outp
 I've [hidden](.gitignore) files with personally identifying information and added example files (the 'Smith' family) to better illustrate usage.
 
 ## Inputs
-A [CSV file](input/data/smiths.csv) lists personal details for each family member: names, nicknames, birthdays, etc. One row per family member.
+A [CSV file](input/data/smiths_example.csv) lists personal details for each family member: names, nicknames, birthdays, etc. One row per family member.
 
 ```
 Name,Nickname,Relationship (to John Smith),Birthday,Image
@@ -15,7 +15,7 @@ David Daniel Smith,Gramps,Grandfather,4/4/1970,Grampa_Dave_cropped.png
 ...
 ```
 
-An [SVG template](input/templates/template_front.svg) provides a layout for images and text:
+An [SVG template](input/templates) provides a layout for images and text:
 
 ![](readme/template_front_small.png)
 
@@ -34,3 +34,6 @@ Card Front:
 Card Back: 
 
 ![](readme/sm_David_Daniel_Smith_back.png)
+
+## Implementation
+The main script is written in JavaScript, uses minimist to parse arguments and calls [Inkscape](https://inkscape.org/en/doc/inkscape-man.html) to convert SVGs to PNG. SVG field substitution is done by copying SVGs and replacing text.
