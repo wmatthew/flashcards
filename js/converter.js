@@ -16,7 +16,6 @@ if (argv.h || argv.help) {
 	console.log(" -v                                # verbose mode");
 	console.log(" --vv                              # debug mode (very verbose)");
 	console.log(" --overwrite                       # okay to overwrite files");
-	console.log(" --template=path/to/template.svg   # flashcard template");
 	console.log(" --csv=path/to/database.csv        # DB of personal info");
 	console.log(" --imgs=path/to/imgDir/            # Input image directory");
 	console.log(" --svg=path/to/svgDir/             # SVG output directory");
@@ -42,7 +41,6 @@ function parse(arg, defaultValue, context) {
 	}
 }
 
-var templateFile = parse(argv.template, "input/templates/template_front.svg", "template file");
 var csvFile      = parse(argv.csv,      "input/data/smiths_example.csv", "csv data file");
 var imgDir       = parse(argv.imgs,     "input/images/smiths/", "input image dir");
 var svgOut       = parse(argv.svg,      "output/smiths/svg/", "svg output dir");
@@ -51,7 +49,7 @@ var overwriteOk  = parse(argv.overwrite, false, "okay to overwrite files");
 var outputSuffix = parse(argv.suffix, "", "output file name suffix")
 
 // These inputs are hard-coded, for now
-var pngDimensions = [750, 1125];
+var pngDimensions = [822, 1122];
 var inkscapeFullPath = "/Applications/Inkscape.app/Contents/Resources/bin/inkscape";
 
 // File System Utils
@@ -61,7 +59,6 @@ var fs = require('fs');
 
 //==================================================================================================
 // Actual Execution
-var templateData = fs.readFileSync(templateFile, 'utf8');
 convert();
 
 //==================================================================================================
@@ -89,7 +86,6 @@ function sanityChecks() {
 	var result = true;
 
   result &= fileExists(csvFile);
-  result &= fileExists(templateFile);
   result &= fileExists(svgOut);
   result &= fileExists(pngOut);
 
@@ -121,7 +117,9 @@ function fileExists(relativePath) {
 function processCSV(csvFile) {
   var csvData = fs.readFileSync(csvFile, 'utf8');
 	var familyArray = csvData.split(/\r?\n/);
-	var headerRow = familyArray.shift();
+
+	// Drop N (N=1) header rows. TODO: make this an input arg.
+	familyArray.shift();
 
 	// Not general.
 	// var expectedHeaderRow = "Name,Nickname,Relationship (to John Smith),Birthday,Image";
@@ -139,43 +137,64 @@ function rowToSvg(rowStr) {
 		debug("Skipping invalid row: [" + rowStr + "]");
 		return;
 	}
+
+	// Commas mess up CSV files. Rather than adding parsing logic, we just require data to use '^^^' for a comma.
 	var rowArr = rowStr.split(',');
 
-	// It's more convenient if we do allow extra unused colums off to the right.
+	// Disabled: it's more convenient if we do allow extra unused columns off to the right.
 	// TODO: add a flag to enable/disable this check?
 	// if (rowArr.length !== 5) {
 	// 	console.log("Row of unexpected length ("+rowArr.length+"): " + rowStr);
 	// 	return;
 	// }
 
-	var cleanedName = rowArr[0];
-	var cleanedName = cleanedName.replaceAll(' ', '_');
-	var svgFileName = cleanedName + outputSuffix + ".svg";
+	var _fullName = rowArr[0];
+	var _nickName = rowArr[1];
+	var _relationship = rowArr[2];
+	var _inputImage = rowArr[3];
+	var _template = rowArr[4];
+	var _detail = rowArr[5].replaceAll('^^^', ',').replaceAll('&&&', '"');
+	var _uniqueID = rowArr[6];
 
-	var rowData = templateData;
+	var svgFileName = function() {
+		var cleanedName = _fullName;
+		cleanedName = cleanedName.replaceAll(' ', '_');
+		if (cleanedName.length == 0) {
+			cleanedName = "_BLANK_" + _template;
+		}
+		return _uniqueID + '_' + cleanedName + outputSuffix + ".svg";
+	}();
 
-	var fullName = rowArr[0];
-	var nickName = rowArr[1];
-	if (nickName == "none") {
-		nickName = fullName;
-	}
+  var templateFile = "input/templates/template_" + _template + outputSuffix + ".svg";
+  // templateFile = "input/templates/template_master.svg"; // DEV ONLY - REMOVE
+	var rowData = fs.readFileSync(templateFile, 'utf8');
 
 	// Add an extra dir level here because svg output dir is deeper than input:
 	//   input/templates/
 	//   output/smiths/svg/
 	var imageWithPath = 'input/images/default_person.png'; // default
-	if (rowArr[4].length > 0) {
-		imageWithPath = "../" + imgDir + rowArr[4];
+	if (_inputImage.length > 0) {
+		imageWithPath = "../" + imgDir + _inputImage;
 	}
 
-	rowData = rowData.replaceAll('$FULL_NAME$', fullName);
-	rowData = rowData.replaceAll('$NICKNAME$', nickName);
-	rowData = rowData.replaceAll('$DESC_1$', "");
-	rowData = rowData.replaceAll('$DESC_2$', rowArr[2]);
+	var detail_long = "";
+	var detail_short = "";
+
+	// If it's 1 or 2 lines, bump it down
+	if (_detail.length < 94) {
+		detail_short = _detail;
+	} else {
+    detail_long = _detail;
+	}
+
+	rowData = rowData.replaceAll('$NICKNAME$', _nickName);
+	rowData = rowData.replaceAll('input/images/default_person.png', imageWithPath);
+	rowData = rowData.replaceAll('$FULL_NAME$', _fullName);
+	rowData = rowData.replaceAll('$RELATIONSHIP$', _relationship);
+	rowData = rowData.replaceAll('$DESC_1$', detail_long);
+	rowData = rowData.replaceAll('$DESC_2$', detail_short);
 	rowData = rowData.replaceAll('$DESC_3$', "");
 	rowData = rowData.replaceAll('$DESC_4$', "");
-	rowData = rowData.replaceAll('$BIRTHDAY$', rowArr[3]);
-	rowData = rowData.replaceAll('input/images/default_person.png', imageWithPath);
 
 	var svgPath = svgOut + svgFileName;
 	if (fileExists(svgPath) && !overwriteOk) {
